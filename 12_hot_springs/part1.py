@@ -19,18 +19,13 @@ def possible_arrangements(record):
         new_states = {}
         for (damage, expect), count in states.items():
             if spring != '#' and expect != '#':
-                new_damage = damage
-                new_expect = '?' if new_damage else '.'
-                new_state = (new_damage, new_expect)
+                new_state = (damage, '?' if damage else '.')
                 new_states[new_state] = new_states.get(new_state, 0) + count
             if spring != '.' and expect != '.':
                 if damage[0] == 1:
-                    new_damage = damage[1:]
-                    new_expect = '.'
+                    new_state = (damage[1:], '.')
                 else:
-                    new_damage = (damage[0] - 1,) + damage[1:]
-                    new_expect = '#'
-                new_state = (new_damage, new_expect)
+                    new_state = ((damage[0] - 1,) + damage[1:], '#')
                 new_states[new_state] = new_states.get(new_state, 0) + count
         states = new_states
     end_state = ((), '.')
